@@ -1,0 +1,27 @@
+h2 {
+  color: red;
+  font-weight: lighter;
+}
+
+button.clear {
+  background-color: var(--light-grey, #EEE);
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: var(--light-blue, #CFD8DC);
+}
+
+button:disabled {
+  background-color: var(--light-grey, #EEE);
+  color: var(--deep-blue, #607D8B);
+  cursor: auto;
+}
+
+button.clear {
+  color: var(--dark-grey, #888);
+  margin-bottom: 12px;
+}
