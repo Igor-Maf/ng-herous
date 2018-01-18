@@ -1,3 +1,6 @@
+/**
+ * На этапе встраивания HttpClientInMemoryWebApiModule, этот файл был удален
+ */
 import { Hero } from './hero';
 
 export const HEROES: Hero[] = [
