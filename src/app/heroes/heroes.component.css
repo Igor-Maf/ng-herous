@@ -60,3 +60,14 @@
   margin-right: .8em;
   border-radius: 4px 0 0 4px;
 }
+
+.btn-delete {
+  border: none;
+  position: absolute;
+  right: 5px;
+  padding: 5px 10px;
+}
+
+.btn-delete:hover {
+  background-color: var(--light-blue, #CFD8DC);
+}
