@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormControl, FormGroup } from "@angular/forms";
+import { AbstractControl, FormArray, FormControl, FormGroup, ValidatorFn, Validators } from "@angular/forms";
 
 /**
  * TODO: Profile выделить в отдельный модуль, подгружать lazy-loading-ом из рутового модуля.
@@ -12,14 +12,43 @@ import { FormArray, FormControl, FormGroup } from "@angular/forms";
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
-  name: FormControl = new FormControl('');
+  /**
+   * Custom validator for username field
+   */
+  private userNameValidator(): ValidatorFn {
+    // resolve to use [a-zA-Z0-9_], `.`, `@` and `-` with length 2-30 characters
+    const pattern: RegExp = /^[\w\.\@\-]{2,30}$/;
+
+    return (control: AbstractControl): { [key: string]: any } =>
+      !(control.dirty || control.touched)
+        ? null
+        : pattern.test(control.value)
+          ? null
+          : {custom: `Min length: 5, can't contain whitespaces & special symbols.`} // custom error and relevant message
+  }
+
+  /* name: FormControl = new FormControl('', [
+    Validators.required,
+    this.userNameValidator()
+  ]); */
 
   signUpForm: FormGroup = new FormGroup({
-    name: this.name,
+    name: new FormControl('', [
+      Validators.required,
+      this.userNameValidator()
+    ]), // this.name
     email: new FormControl(''),
     address: new FormGroup({
-      country: new FormControl(''),
-      city: new FormControl('')
+      country: new FormControl('', [
+        Validators.minLength(2),
+        Validators.maxLength(50),
+        Validators.required
+      ]),
+      city: new FormControl('', [
+        Validators.minLength(2),
+        Validators.maxLength(50),
+        Validators.required
+      ])
     }),
     contacts: new FormArray([])
   });

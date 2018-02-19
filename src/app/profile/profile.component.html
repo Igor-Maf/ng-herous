@@ -11,7 +11,14 @@
         <div class="form-row">
           <div class="form-group col-md-6">
             <label for="username">Name</label>
-            <input id="username" class="form-control" placeholder="e.g. Alex" formControlName="name">
+            <input
+              id="username"
+              class="form-control"
+              placeholder="e.g. Alex"
+              formControlName="name"
+              [ngClass]="{'is-invalid': signUpForm.get('name').invalid && signUpForm.get('name').touched}">
+
+            {{signUpForm.get('name').errors | json}}
           </div>
 
           <div class="form-group col-md-6">
@@ -29,12 +36,31 @@
         <div class="form-row" formGroupName="address">
           <div class="form-group col-md-6">
             <label for="country">Country</label>
-            <input id="country" class="form-control" placeholder="e.g. Ukraine" formControlName="country">
+
+            <input
+              id="country"
+              class="form-control"
+              placeholder="e.g. Ukraine"
+              formControlName="country"
+              [ngClass]="{'is-invalid': signUpForm.get('address').get('country').invalid && signUpForm.get('address').get('country').touched}">
+
+            <!-- <div *ngIf="signUpForm.get('address').get('country').errors?.required" class="invalid-tooltip">
+              Field is required!
+            </div> -->
+            {{signUpForm.get('address').get('country').errors | json}}
           </div>
 
           <div class="form-group col-md-6">
             <label for="city">City</label>
-            <input id="city" class="form-control" placeholder="e.g. Odessa" formControlName="city">
+
+            <input
+              id="city"
+              class="form-control"
+              placeholder="e.g. Odessa"
+              formControlName="city"
+              [ngClass]="{'is-invalid': signUpForm.get('address').get('city').invalid && signUpForm.get('address').get('city').touched}">
+
+            {{signUpForm.get('address').get('city').errors | json}}
           </div>
         </div>
 
