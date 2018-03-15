@@ -2,7 +2,12 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+
+import { AngularFireModule } from 'angularfire2';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { environment } from '../environments/environment';
 
 import { InMemoryDataService } from './in-memory-data.service';
 import { HeroService } from './hero.service';
@@ -40,13 +45,15 @@ import { ProfileComponent } from './profile/profile.component';
     Remove it when a real server is ready to receive requests. */
     HttpClientInMemoryWebApiModule.forRoot(
       InMemoryDataService, { dataEncapsulation: false }
-    )
+    ),
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule.enablePersistence()
   ],
 
   // creators of services that this module contributes to the Global Collection of Services (they become accessible in all parts of the app)
   providers: [HeroService, MessageService],
 
-  // the main application view, called the Root Component, that hosts all other app views. Only the Root Module Should Set this Bootstrap property.
+  // the main application view, called the Root Component, hosts all other app views. Only Root Module Should Set this Bootstrap property.
   bootstrap: [AppComponent]
 })
 export class AppModule { }

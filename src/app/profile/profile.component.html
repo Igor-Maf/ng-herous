@@ -7,7 +7,7 @@
 
   <div class="row">
     <div class="col col-lg-8">
-      <form [formGroup]="signUpForm">
+      <form [formGroup]="signUpForm" (submit)="submitForm($event)">
         <div class="form-row">
           <div class="form-group col-md-6">
             <label for="username">Name</label>
@@ -91,6 +91,10 @@
             <button type="button" class="btn btn-outline-success" (click)="addContact()">Add new</button>
           </div>
         </ng-container>
+
+        <div class="form-group">
+          <button class="btn btn-outline-primary">Save</button>
+        </div>
       </form>
     </div>
   </div>

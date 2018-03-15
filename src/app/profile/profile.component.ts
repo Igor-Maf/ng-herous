@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormArray, FormControl, FormGroup, ValidatorFn, Validators } from "@angular/forms";
+import { AbstractControl, FormArray, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+
+import { AngularFirestore } from 'angularfire2/firestore';
 
 /**
  * TODO: Profile выделить в отдельный модуль, подгружать lazy-loading-ом из рутового модуля.
@@ -12,21 +14,6 @@ import { AbstractControl, FormArray, FormControl, FormGroup, ValidatorFn, Valida
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
-  /**
-   * Custom validator for username field
-   */
-  private userNameValidator(): ValidatorFn {
-    // resolve to use [a-zA-Z0-9_], `.`, `@` and `-` with length 2-30 characters
-    const pattern: RegExp = /^[\w\.\@\-]{2,30}$/;
-
-    return (control: AbstractControl): { [key: string]: any } =>
-      !(control.dirty || control.touched)
-        ? null
-        : pattern.test(control.value)
-          ? null
-          : {custom: `Min length: 5, can't contain whitespaces & special symbols.`} // custom error and relevant message
-  }
-
   /* name: FormControl = new FormControl('', [
     Validators.required,
     this.userNameValidator()
@@ -59,7 +46,22 @@ export class ProfileComponent implements OnInit {
     { value: 'skype', title: 'Skype' }
   ];
 
-  constructor() {}
+  /**
+   * Custom validator for username field
+   */
+  private userNameValidator(): ValidatorFn {
+    // resolve to use [a-zA-Z0-9_], `.`, `@` and `-` with length 2-30 characters
+    const pattern: RegExp = /^[\w\.\@\-]{2,30}$/;
+
+    return (control: AbstractControl): { [key: string]: any } =>
+      !(control.dirty || control.touched)
+        ? null
+        : pattern.test(control.value)
+          ? null
+          : {custom: `Min length: 5, can't contain whitespaces & special symbols.`} // custom error and relevant message
+  }
+
+  constructor(private ngFirestore: AngularFirestore) {}
 
   ngOnInit(): void {
     this.addContact();
@@ -77,12 +79,17 @@ export class ProfileComponent implements OnInit {
         type: new FormControl(this.contactTypes[0].value),
         value: new FormControl('')
       })
-    )
+    );
   }
 
   removeContact(index: number): void {
     const control = <FormArray>this.signUpForm.get('contacts');
 
     control.removeAt(index);
+  }
+
+  submitForm(e: Event): void {
+    console.log(e);
+    console.log(this.signUpForm);
   }
 }
