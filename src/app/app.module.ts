@@ -20,6 +20,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HeroSearchComponent } from './hero-search/hero-search.component';
 import { ProfileComponent } from './profile/profile.component';
+import { ProductsComponent } from './products/products.component';
 
 // decorator that attach Metadata To Class. Hasn't `export` because other components don't need to import the root module
 @NgModule({
@@ -31,7 +32,8 @@ import { ProfileComponent } from './profile/profile.component';
     MessagesComponent,
     DashboardComponent,
     HeroSearchComponent,
-    ProfileComponent
+    ProfileComponent,
+    ProductsComponent
   ],
 
   // modules whose exported classes are needed by component templates declared in This Module

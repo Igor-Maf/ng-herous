@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 
-import { AngularFirestore } from 'angularfire2/firestore';
-
 /**
  * TODO: Profile выделить в отдельный модуль, подгружать lazy-loading-ом из рутового модуля.
  * @see https://medium.com/@maks.zhitlov/reactive-forms-in-angular-2f8abe884f79
@@ -61,7 +59,7 @@ export class ProfileComponent implements OnInit {
           : {custom: `Min length: 5, can't contain whitespaces & special symbols.`} // custom error and relevant message
   }
 
-  constructor(private ngFirestore: AngularFirestore) {}
+  constructor() {}
 
   ngOnInit(): void {
     this.addContact();
